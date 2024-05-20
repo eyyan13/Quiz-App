@@ -1,0 +1,151 @@
+*{
+    margin: 0;
+    padding: 0;
+    font-family: 'poppins', sans-serif;
+    box-sizing: border-box;
+}
+body{
+    background: #001e4d;
+    height: 50vh;
+}
+.app{
+    background: #fff;
+    width: 250%;
+    max-width: 600px;
+    margin: 100px auto 0;
+    border-radius: 10px;
+    padding: 30px;
+    cursor: not-allowed;
+}
+.app h1{
+    font-weight: 25px;
+    color: #001e4d;
+    font-weight: 600;
+    padding-bottom: 15px;
+}
+.quiz{
+    padding: 20px 0;
+}
+.quiz h2{
+    font-size: 18px;
+    color: #001e4d;
+    font-weight: 600;
+    padding-top: 20px;
+}
+.btn{
+    background: #fff;
+    color: #222;
+    font-weight: 500;
+    width: 100%;
+    border: 1px solid #222;
+    padding:10px;
+    margin: 10px 0;
+    text-align: left;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+.btn:hover:not([disabled]){
+    background: #222;
+    color: #fff;
+}
+.btn:disabled{
+    cursor: no-drop;
+}
+#next-btn{
+    background: #001e4d ;
+    color: #fff ;
+    font-weight: 500;
+    width: 150px;
+    border: 0;
+    padding: 10px;
+    margin: 20px auto 0;
+    border-radius: 4px;
+    cursor: pointer;
+    display: none;
+}
+.correct{
+    background: #9aeabc;
+}
+.incorrect{
+    background: #ff9393;
+}
+@media (max-width: 600px) {
+    .app {
+        width: 100%;
+        padding: 15px;
+    }
+
+    .btn {
+        font-size: 14px;
+        padding: 8px;
+    }
+}
+
+@media (max-width: 400px) {
+    .app {
+        padding: 10px;
+    }
+
+    .btn {
+        font-size: 12px;
+        padding: 6px;
+    }
+}
+
+/* Specific styles for iPhone screens */
+@media screen and (max-width: 375px) and (orientation: portrait) {
+    .app {
+        padding: 10px;
+        width: 15%;
+    }
+
+    .btn {
+        font-size: 12px;
+        padding: 6px;
+    }
+}
+
+@media screen and (max-width: 667px) and (orientation: landscape) {
+    .container {
+        width: 90%;
+        padding: 10px;
+    }
+
+    .btn {
+        font-size: 14px;
+        padding: 8px;
+    }
+}
+
+@media screen and (max-width: 812px) and (orientation: portrait) {
+    .app {
+        padding: 15px;
+        width: 90%;
+    }
+
+    .btn {
+        font-size: 14px;
+        padding: 8px;
+    }
+}
+
+@media screen and (max-width: 896px) and (orientation: portrait) {
+    .container {
+        padding: 15px;
+        width: 90%;
+    }
+
+    .btn {
+        font-size: 14px;
+        padding: 8px;
+    }
+}
+.watermark {
+    position: absolute;
+    bottom: 10px;
+    text-align: center;
+    width: 100%;
+    font-size: 12px;
+    color: #888;
+}
