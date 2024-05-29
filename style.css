@@ -6,16 +6,16 @@
 }
 body{
     background: #001e4d;
-    height: 50vh;
 }
 .app{
     background: #fff;
-    width: 250%;
+    width: 100%;
     max-width: 600px;
     margin: 100px auto 0;
     border-radius: 10px;
     padding: 30px;
     cursor: not-allowed;
+    margin-top: 65px;
 }
 .app h1{
     font-weight: 25px;
@@ -93,6 +93,9 @@ body{
     }
 }
 
+#userNameDisplay, #userNumberDisplay {
+    font-size: 18px; /* Default font size */
+}
 /* Specific styles for iPhone screens */
 @media screen and (max-width: 375px) and (orientation: portrait) {
     .app {
@@ -142,10 +145,12 @@ body{
     }
 }
 .watermark {
-    position: absolute;
-    bottom: 10px;
+    position: block;
     text-align: center;
+   padding-top: 20px;
+    padding-right: 20px;
     width: 100%;
     font-size: 12px;
     color: #888;
+    cursor: no-drop;
 }

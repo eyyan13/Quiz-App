@@ -3,30 +3,113 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quiz App</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <title>Quiz App Intro</title>
+    <style>
+      body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    font-style: italic;
+    font-weight: 400;
+}
+
+.form-container {
+    max-width: 400px;
+    width: 100%;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.form-group input {
+    width: 50%;
+    padding: 14px;
+    border: 2px solid #0e2485;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+.form-buttons {
+    display: flex;
+    justify-content: center;
+}
+
+.form-buttons button {
+    padding: 10px 20px;
+    margin: 10px 5px;
+    border: none;
+    border-radius: 5px;
+    background-color: #007BFF;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.form-buttons button:hover {
+    background-color: #0056b3;
+}
+
+@media (max-width: 768px) {
+    .form-container {
+        max-width: 90%;
+        padding: 15px;
+    }
+    .form-buttons button {
+        width: 100%;
+        margin: 5px 0;
+    }
+}
+    </style>
 </head>
 <body>
-    <div class="app"><h1><u>
-        Simple Quiz </u>
-    </h1>
-<div id="quiz">
-    <h2 id="question">Question goes here</h2>
-    <div id="answer-buttons">
-        <button class="btn">Answer 1 </button>
-        <button class="btn">Answer 2 </button>
-        <button class="btn">Answer 3 </button>
-        <button class="btn">Answer 4 </button>
-        <button class="btn">Answer 5 </button>
-    </div>
-    <button id="next-btn"></button>
 
-</div></div> </div>
-<div class="watermark">Quiz App © 2024 <br> By Eyyan</div>
-<script src="script.js"></script>
+<div class="form-container">
+    <form id="introForm">
+        <div class="form-group">
+            <label for="userName">Name:</label>
+            <input type="text" id="userName" name="userName" required>
+        </div>
+        <div class="form-group">
+            <label for="userNumber">Number:</label>
+            <input type="text" id="userNumber" name="userNumber" required>
+        </div>
+        <div class="form-buttons">
+            <button type="submit">Enter</button>
+        </div>
+    </form>
+</div>
+
+<script>
+    document.getElementById('introForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+        const userName = document.getElementById('userName').value;
+        const userNumber = document.getElementById('userNumber').value;
+
+       
+        localStorage.setItem('userName', userName);
+        localStorage.setItem('userNumber', userNumber);
+
+        window.location.href = 'quiz.html';
+    });
+</script>
 
 </body>
 </html>

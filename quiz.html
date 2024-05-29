@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz App</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="app">
+        <h1><u>Simple Quiz</u></h1>
+        <div id="userDisplay">
+            <p>Name: <span id="userNameDisplay"></span></p>
+            <p>Number: <span id="userNumberDisplay"></span></p>
+        </div>
+        <div id="quiz">
+            <h2 id="question">Question goes here</h2>
+            <div id="answer-buttons">
+                <button class="btn">Answer 1</button>
+                <button class="btn">Answer 2</button>
+                <button class="btn">Answer 3</button>
+                <button class="btn">Answer 4</button>
+                <button class="btn">Answer 5</button>
+            </div>
+            <button id="next-btn">Next</button>
+        </div>
+    </div>
+    <div class="watermark">Quiz App © 2024 <br> By Eyyan</div>
+
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+        import { getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyAyc4ONjwPnOT_2aj71xYrI0ZHCfkJ-frw",
+            authDomain: "quizapp-78a5e.firebaseapp.com",
+            databaseURL: "https://quizapp-78a5e-default-rtdb.firebaseio.com",
+            projectId: "quizapp-78a5e",
+            storageBucket: "quizapp-78a5e.appspot.com",
+            messagingSenderId: "939286239958",
+            appId: "1:939286239958:web:5855b6b2bf6b185f434777",
+            measurementId: "G-LLEG6ETR2K"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const database = getDatabase(app);
+
+        // Retrieve user data from localStorage
+        const userName = localStorage.getItem('userName');
+        const userNumber = localStorage.getItem('userNumber');
+
+        // Display user's name and number on the quiz page
+        document.getElementById('userNameDisplay').textContent = userName;
+        document.getElementById('userNumberDisplay').textContent = userNumber;
+
+        userNameDisplay.style.padding = '15px';
+        userNumberDisplay.style.padding = '15px';
+
+        const questions = [
+    {
+        question: "Who holds the record for the highest individual score in a One Day International cricket match?",
+        answers: [
+            { text: "Sachin Tendulkar", correct: false },
+            { text: "Rohit Sharma", correct: true },
+            { text: "Brian Lara", correct: false },
+            { text: "Chris Gayle", correct: false }
+        ]
+    },
+    {
+        question: "Which country won the first Cricket World Cup in 1975?",
+        answers: [
+            { text: "Australia", correct: false },
+            { text: "West Indies", correct: true },
+            { text: "England", correct: false },
+            { text: "India", correct: false }
+        ]
+    },
+    {
+        question: "Who is known as the 'God of Cricket'?",
+        answers: [
+            { text: "Ricky Ponting", correct: false },
+            { text: "Sachin Tendulkar", correct: true },
+            { text: "Brian Lara", correct: false },
+            { text: "Viv Richards", correct: false }
+        ]
+    },
+    {
+        question: "What is the capital of Australia?",
+        answers: [
+            { text: "Sydney", correct: false },
+            { text: "Melbourne", correct: false },
+            { text: "Canberra", correct: true },
+            { text: "Brisbane", correct: false }
+        ]
+    },
+    {
+        question: "Who developed the theory of relativity?",
+        answers: [
+            { text: "Isaac Newton", correct: false },
+            { text: "Albert Einstein", correct: true },
+            { text: "Galileo Galilei", correct: false },
+            { text: "Nikola Tesla", correct: false }
+        ]
+    },
+    {
+        question: "What is the boiling point of water?",
+        answers: [
+            { text: "90°C", correct: false },
+            { text: "100°C", correct: true },
+            { text: "110°C", correct: false },
+            { text: "120°C", correct: false }
+        ]
+    },
+    {
+        question: "Which company developed the iPhone?",
+        answers: [
+            { text: "Google", correct: false },
+            { text: "Samsung", correct: false },
+            { text: "Apple", correct: true },
+            { text: "Microsoft", correct: false }
+        ]
+    },
+    {
+        question: "What does AI stand for in the field of technology?",
+        answers: [
+            { text: "Artificial Intelligence", correct: true },
+            { text: "Automated Interface", correct: false },
+            { text: "Active Implementation", correct: false },
+            { text: "Advanced Integration", correct: false }
+        ]
+    },
+    {
+        question: "Who is considered the father of the computer?",
+        answers: [
+            { text: "Alan Turing", correct: false },
+            { text: "Charles Babbage", correct: true },
+            { text: "Steve Jobs", correct: false },
+            { text: "Bill Gates", correct: false }
+        ]
+    },
+    {
+        question: "Which team has won the most ICC Cricket World Cups?",
+        answers: [
+            { text: "India", correct: false },
+            { text: "Australia", correct: true },
+            { text: "West Indies", correct: false },
+            { text: "England", correct: false }
+        ]
+    },
+    {
+        question: "What does HTTP stand for?",
+        answers: [
+            { text: "HyperText Transfer Protocol", correct: true },
+            { text: "HyperText Transmission Protocol", correct: false },
+            { text: "HyperText Translation Protocol", correct: false },
+            { text: "HyperText Transfer Program", correct: false }
+        ]
+    },
+    {
+        question: "Which element has the chemical symbol 'O'?",
+        answers: [
+            { text: "Oxygen", correct: true },
+            { text: "Gold", correct: false },
+            { text: "Osmium", correct: false },
+            { text: "Iron", correct: false }
+        ]
+    },
+    {
+        question: "Who invented the World Wide Web?",
+        answers: [
+            { text: "Bill Gates", correct: false },
+            { text: "Tim Berners-Lee", correct: true },
+            { text: "Steve Jobs", correct: false },
+            { text: "Mark Zuckerberg", correct: false }
+        ]
+    },
+    {
+        question: "Which cricketer has scored the most runs in Test cricket?",
+        answers: [
+            { text: "Brian Lara", correct: false },
+            { text: "Ricky Ponting", correct: false },
+            { text: "Sachin Tendulkar", correct: true },
+            { text: "Jacques Kallis", correct: false }
+        ]
+    },
+    {
+        question: "What is the process of converting sunlight into energy in plants called?",
+        answers: [
+            { text: "Photosynthesis", correct: true },
+            { text: "Respiration", correct: false },
+            { text: "Fermentation", correct: false },
+            { text: "Transpiration", correct: false }
+        ]
+    }
+];
+        const questionElement = document.getElementById("question");
+        const answerButtons = document.getElementById("answer-buttons");
+        const nextButton = document.getElementById("next-btn");
+
+        let currentQuestionIndex = 0;
+        let score = 0;
+
+        function startQuiz() {
+            currentQuestionIndex = 0;
+            score = 0;
+            nextButton.innerHTML = "Next";
+            showQuestion();
+        }
+
+        function showQuestion() {
+            resetState();
+            let currentQuestion = questions[currentQuestionIndex];
+            let questionNo = currentQuestionIndex + 1;
+            questionElement.innerHTML = questionNo + ". " + currentQuestion.question;
+
+            currentQuestion.answers.forEach(answer => {
+                const button = document.createElement("button");
+                button.innerHTML = answer.text;
+                button.classList.add("btn");
+                answerButtons.appendChild(button);
+                if (answer.correct) {
+                    button.dataset.correct = answer.correct;
+                }
+                button.addEventListener("click", selectAnswer);
+            });
+        }
+
+        function resetState() {
+            nextButton.style.display = "none";
+            while (answerButtons.firstChild) {
+                answerButtons.removeChild(answerButtons.firstChild);
+            }
+        }
+
+        function selectAnswer(e) {
+            const selectedBtn = e.target;
+            const isCorrect = selectedBtn.dataset.correct === "true";
+            if (isCorrect) {
+                selectedBtn.classList.add("correct");
+                score++;
+            } else {
+                selectedBtn.classList.add("incorrect");
+            }
+            Array.from(answerButtons.children).forEach(button => {
+                if (button.dataset.correct === "true") {
+                    button.classList.add("correct");
+                }
+                button.disabled = true;
+            });
+            nextButton.style.display = "block";
+        }
+
+        function showScore() {
+            resetState();
+            questionElement.innerHTML = `You scored ${score} out of ${questions.length}!`;
+            nextButton.innerHTML = "Play Again";
+            nextButton.style.display = "block";
+
+            // Save score to Firebase
+            const userId = userNumber; // or another unique identifier for the user
+            set(ref(database, 'scores/' + userId), {
+                name: userName,
+                score: score
+            });
+        }
+
+        function handleNextButton() {
+            currentQuestionIndex++;
+            if (currentQuestionIndex < questions.length) {
+                showQuestion();
+            } else {
+                showScore();
+            }
+        }
+
+        nextButton.addEventListener("click", () => {
+            if (currentQuestionIndex < questions.length) {
+                handleNextButton();
+            } else {
+                startQuiz();
+            }
+        });
+
+        startQuiz();
+    </script>
+</body>
+</html>
